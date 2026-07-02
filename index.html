@@ -93,6 +93,18 @@ a{color:inherit}
 .benefit .n{font-family:'Bebas Neue';color:var(--orange);font-size:28px;line-height:1}
 .benefit h4{font-size:15px;margin:6px 0 4px}
 .benefit p{font-size:13px;color:var(--muted);line-height:1.55}
+.scale-wrap{margin-top:18px;border:2px solid var(--line);background:var(--panel);overflow-x:auto;box-shadow:6px 6px 0 #000}
+.scale-tbl{width:100%;border-collapse:collapse;min-width:600px}
+.scale-tbl th,.scale-tbl td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.scale-tbl thead th{background:#000;font-family:'Bebas Neue';letter-spacing:.05em;font-size:18px;color:var(--gold);vertical-align:top}
+.scale-tbl thead th .nt{display:block;font-family:'Noto Sans JP';font-size:11px;color:var(--muted);letter-spacing:0;font-weight:400;margin-top:4px;max-width:220px}
+.scale-tbl thead th .ev{display:block;font-family:'Noto Sans JP';font-size:12px;color:#fff;font-weight:700;letter-spacing:0;margin-top:5px}
+.scale-tbl tbody tr:last-child td{border-bottom:0}
+.scale-tbl td.metric{color:var(--muted);font-size:13px}
+.scale-tbl td .v{font-family:'Bebas Neue';font-size:30px;line-height:1}
+.scale-tbl .hl{background:rgba(204,85,0,.08)}
+.scale-tbl th.hl{color:var(--orange)}
+.scale-note{font-size:12px;color:var(--muted-2);margin-top:12px;line-height:1.8}
 
 .slogan{font-family:'Bebas Neue','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(30px,6.5vw,68px);color:var(--orange);letter-spacing:.02em;line-height:.98;margin:30px 0 6px}
 .submotto{display:block;font-family:'Bebas Neue','Noto Sans JP',sans-serif;font-size:.42em;color:var(--gold);letter-spacing:.18em;margin-top:8px}
@@ -319,6 +331,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
       <div class="benefit"><div class="n">03</div><h4>チームへの好意が乗る</h4><p>「応援しているチームのスポンサー」という文脈が、ブランドへの信頼と親近感を自然に生みます。</p></div>
       <div class="benefit"><div class="n">04</div><h4>多国籍ロスターで国境を越える</h4><p>日本・韓国・北米拠点のメンバーが在籍。日・韓・英語圏のファンへ、同じ枠で自然に届きます。</p></div>
     </div>
+    <h3 style="font-weight:900;font-size:clamp(18px,2.6vw,24px);margin-top:46px">日本地域 → 国際大会 → 世界。<span style="color:var(--gold)">勝ち上がるほど、露出は伸びる。</span></h3>
+    <div id="scaleTable"></div>
   </div>
 </section>
 
@@ -433,9 +447,13 @@ const CONFIG = {
 
   seasonMonths: 3.5,
 
-  industry: {   // OWCS全体（出典: Esports Charts, 2025）
-    owcsAvgViewers: 114400, owcsPeakViewers: 177010, owcsHoursWatched: 4300000,
-    owPeakRecord: 437006, prizePool2025USD: 3351502, regions: "アジア・北米・EMEA・中国",
+  scale: {   // 「①日本地域 → ②アジア/国際 → ③世界」3段階（すべて OWCS 2025・Esports Charts）
+    source: "Esports Charts・すべて OWCS 2025 シーズン",
+    rows: [
+      { tier:"① 日本地域",        event:"Japan Stage 2",         note:"日本語放送・99DIVINEの主戦場",            peak:35453,  avg:13459, hours:994789,  mediaValue:440441,  hl:true },
+      { tier:"② アジア / 国際大会", event:"Champions Clash（Stage 1）", note:"地域を勝ち上がった先の国際舞台（杭州）", peak:123917, avg:82146, hours:2067321, mediaValue:1255714 },
+      { tier:"③ 世界大会",        event:"World Finals（Stage 3）",  note:"世界の頂点（Stockholm）",                peak:177010, avg:null,  hours:4300000, mediaValue:null },
+    ],
   },
 
   benchmarks: [
@@ -546,13 +564,13 @@ let activeBench = resolveBench(CONFIG.benchmarkDefault);
 
 /* ---------- build: hero / ticker / about / roster ---------- */
 function buildHero(){
-  const i=CONFIG.industry;
+  const r=CONFIG.scale.rows, jp=r[0], gl=r[r.length-1];
   $("#heroStats").innerHTML = `
-    <div class="eyebrow gold" style="margin-bottom:14px">OWCS 2025 · BY THE NUMBERS</div>
-    <div class="row"><span class="num" style="color:var(--orange)">${man(i.owcsPeakViewers)}</span><span class="lbl">ピーク同時視聴者<br>OWCS World Finals</span></div>
-    <div class="row"><span class="num">${man(i.owcsAvgViewers)}</span><span class="lbl">平均同時視聴者</span></div>
-    <div class="row"><span class="num">${fmt(i.owcsHoursWatched/10000)}<small style="font-size:14px">万h</small></span><span class="lbl">総視聴時間</span></div>
-    <div class="row"><span class="num">${i.regions.split("・").length}<small style="font-size:14px">地域</small></span><span class="lbl">アジア・北米<br>EMEA・中国</span></div>`;
+    <div class="eyebrow gold" style="margin-bottom:14px">OWCS 2025 · 規模感</div>
+    <div class="row"><span class="num" style="color:var(--orange)">${fmt(gl.peak)}</span><span class="lbl">世界決勝 ピーク<br>同時視聴者</span></div>
+    <div class="row"><span class="num">${fmt(jp.peak)}</span><span class="lbl">日本地域 ピーク<br>同時視聴者</span></div>
+    <div class="row"><span class="num">$${Math.round(jp.mediaValue/1000)}K</span><span class="lbl">日本1ステージの<br>媒体価値（広告換算）</span></div>
+    <div class="row"><span class="num">${man(gl.hours)}<small style="font-size:14px">h</small></span><span class="lbl">総視聴時間<br>（世界決勝）</span></div>`;
 }
 function buildTicker(){
   const items=["99DIVINE","ALWAYS CHASE THE 1%","LUCE IN ALTIS","日・韓・英語圏へリーチ","熱量で届く広告","YOUR BRAND IN THE GAME"];
@@ -708,6 +726,19 @@ function renderCalc(){
 }
 
 /* ---------- intermission / contact ---------- */
+function buildScaleTable(){
+  const sc=CONFIG.scale, host=$("#scaleTable"); if(!sc||!host) return;
+  const cols=sc.rows;
+  const usd=n=> n==null?"—" : (n>=1e6 ? "$"+(n/1e6).toFixed(2)+"M" : "$"+Math.round(n/1000)+"K");
+  const head=`<tr><th></th>${cols.map(c=>`<th class="${c.hl?'hl':''}">${esc(c.tier)}<span class="ev">${esc(c.event)}</span><span class="nt">${esc(c.note)}</span></th>`).join("")}</tr>`;
+  const row=(label,fn)=>`<tr><td class="metric">${label}</td>${cols.map(c=>`<td class="${c.hl?'hl':''}">${fn(c)}</td>`).join("")}</tr>`;
+  const body=row("ピーク同時視聴",c=>`<span class="v">${fmt(c.peak)}</span>`)
+            +row("平均同時視聴",c=>c.avg?fmt(c.avg):"—")
+            +row("総視聴時間",c=>man(c.hours)+"h")
+            +row("媒体価値（広告換算）",c=>usd(c.mediaValue));
+  host.innerHTML=`<div class="scale-wrap"><table class="scale-tbl"><thead>${head}</thead><tbody>${body}</tbody></table></div>
+    <p class="scale-note">出典：${esc(sc.source)}。99DIVINEは<b style="color:var(--gold-soft)">①日本地域</b>で戦い、勝ち上がると<b style="color:var(--gold-soft)">②国際大会</b>、さらに<b style="color:var(--gold-soft)">③世界大会</b>へと露出規模が拡大します。②は日本地域を勝ち抜いた先の、アジアを含む全地域が集う国際大会（Champions Clash）の数値です。「媒体価値」は広告換算の到達価値。</p>`;
+}
 function buildIntermission(){
   const src=CONFIG.about.catPhoto, frame=$("#catFrame"); if(!frame) return;
   if(src){ const img=new Image(); img.alt="Supreme and his cat"; img.onerror=()=>frame.classList.add("noimg"); img.src=src; frame.insertBefore(img,frame.firstChild); }
@@ -720,7 +751,7 @@ function buildContact(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
-  buildHero(); buildTicker(); buildAbout(); buildRoster(); buildTiers(); buildCalc(); buildIntermission(); buildContact();
+  buildHero(); buildTicker(); buildAbout(); buildRoster(); buildScaleTable(); buildTiers(); buildCalc(); buildIntermission(); buildContact();
 });
 </script>
 </body>
