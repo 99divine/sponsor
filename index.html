@@ -105,6 +105,30 @@ a{color:inherit}
 .scale-tbl .hl{background:rgba(204,85,0,.08)}
 .scale-tbl th.hl{color:var(--orange)}
 .scale-note{font-size:12px;color:var(--muted-2);margin-top:12px;line-height:1.8}
+.gbars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;align-items:end}
+@media(max-width:640px){.gbars{grid-template-columns:repeat(2,1fr);gap:18px}}
+.gb .gcol{height:150px;display:flex;align-items:flex-end;background:#000;border:2px solid var(--line);padding:6px}
+.gb .gcol i{display:block;width:100%;background:var(--muted-2);transition:height 1.1s cubic-bezier(.2,.7,.2,1)}
+.gb.hl .gcol i{background:var(--orange)}
+.gb .gv{font-family:'Bebas Neue';font-size:23px;margin-top:8px}
+.gb.hl .gv{color:var(--orange)}
+.gb .gy{font-family:'Bebas Neue';color:var(--gold);font-size:16px;letter-spacing:.08em}
+.gb .gl{font-size:11px;color:var(--muted);line-height:1.4}
+.gstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.gstats.four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.gstats.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.gstats{grid-template-columns:1fr}.gstats.four{grid-template-columns:1fr}}
+.gs{border:2px solid var(--line);background:var(--panel-2);padding:14px 16px}
+.gs .v{font-family:'Bebas Neue';font-size:30px;color:var(--gold)}
+.gs .l{font-size:12px;color:var(--muted);margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.chip{border:1px solid var(--gold);color:var(--gold-soft);font-size:12.5px;padding:6px 12px;background:rgba(200,169,110,.06)}
+.embed-frame{margin-top:22px;border:2px solid var(--line);background:var(--panel);box-shadow:6px 6px 0 #000;min-height:300px}
+.embed-frame iframe{width:100%;height:640px;border:0;display:block}
+.embed-frame.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:44px 24px;border-style:dashed}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
 .slogan{font-family:'Bebas Neue','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(30px,6.5vw,68px);color:var(--orange);letter-spacing:.02em;line-height:.98;margin:30px 0 6px}
 .submotto{display:block;font-family:'Bebas Neue','Noto Sans JP',sans-serif;font-size:.42em;color:var(--gold);letter-spacing:.18em;margin-top:8px}
@@ -218,15 +242,6 @@ a{color:inherit}
 .calc h4{font-weight:900;font-size:20px;margin-bottom:4px}
 .calc-rec{font-size:13.5px;color:var(--muted);margin:6px 0 14px}
 
-.inter-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,48px);align-items:center}
-.inter-solo{max-width:560px}
-@media(max-width:760px){.inter-grid{grid-template-columns:1fr}}
-.cat-frame{position:relative;border:3px solid var(--gold);box-shadow:10px 10px 0 var(--orange);background:#000;aspect-ratio:4/3;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.cat-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.cat-ph{display:none;flex-direction:column;align-items:center;gap:8px;color:var(--muted-2);font-size:13px;text-align:center;padding:20px;line-height:1.7}
-.cat-frame.noimg .cat-ph{display:flex}
-.cat-ph code{color:var(--gold);font-family:'Roboto Mono';font-size:13px;border:1px solid var(--line);padding:3px 8px}
-.cat-cap{font-family:'Roboto Mono';font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.04em}
 
 .contact{background:var(--orange);color:#000}
 .contact h2{font-family:'Bebas Neue';font-size:clamp(44px,9vw,110px);line-height:.85;color:#000}
@@ -258,6 +273,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
       <a href="#about">私たち</a>
       <a href="#roster">ロスター</a>
       <a href="#why">なぜeスポーツ</a>
+      <a href="#data">データ</a>
       <a href="#plans">プラン</a>
       <a href="#simulator">試算</a>
       <a href="#faq">FAQ</a>
@@ -333,18 +349,32 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
     </div>
     <h3 style="font-weight:900;font-size:clamp(18px,2.6vw,24px);margin-top:46px">日本地域 → 国際大会 → 世界。<span style="color:var(--gold)">勝ち上がるほど、露出は伸びる。</span></h3>
     <div id="scaleTable"></div>
+    <div id="growth"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DATA -->
+<section id="data">
+  <div class="wrap">
+    <div class="kicker-row"><span class="bar"></span><span class="eyebrow gold">DATA · MONTHLY SNAPSHOT</span></div>
+    <h2 class="sec-title">数字は、毎月更新。</h2>
+    <p class="lead" style="margin-top:16px">2025年1月から、露出・視聴・SNSの月次スナップショットを記録しています。スポンサー様には、加工していない最新の実測データをそのままご覧いただきます。まずは現時点の年間実測から。</p>
+    <div id="teamStats"></div>
+    <div id="monthlyEmbed"></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
 <!-- PLANS -->
-<section id="plans">
+<section id="plans" class="alt">
   <div class="wrap">
     <div class="kicker-row"><span class="bar"></span><span class="eyebrow gold">PARTNERSHIP PLANS</span></div>
     <h2 class="sec-title">3つのプラン。</h2>
     <p class="lead" style="margin-top:16px">まずは小さくお試しからでOK。ご予算に合わせて柔軟に調整します（カスタムのご相談も歓迎です）。</p>
-    <div class="note" style="max-width:none">※掲載の数値はすべて<b>推定（目標とする想定値）</b>で、実績の保証ではありません。私たちが目指す規模感を示すものです。具体的な内容・数値は、お打ち合わせを重ねながら一緒に明確にしていきます。</div>
+    <div class="note" style="max-width:none">※掲載の数値はすべて<b>推定（目標とする想定値）</b>で、実績の保証ではありません。想定インプレッションは、OWCS公式放送でのロゴ露出とチームSNSの実測リーチに基づく試算です。具体的な内容・数値は、お打ち合わせを重ねながら一緒に明確にしていきます。</div>
     <div class="tiers" id="tiers"></div>
   </div>
 </section>
@@ -352,7 +382,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
 <div class="divider"></div>
 
 <!-- SIMULATOR (the single tool) -->
-<section id="simulator" class="alt">
+<section id="simulator">
   <div class="wrap">
     <div class="kicker-row"><span class="bar"></span><span class="eyebrow">SIMULATOR</span></div>
     <h2 class="sec-title">予算から試算。</h2>
@@ -380,7 +410,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
 <div class="divider"></div>
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" class="alt">
   <div class="wrap">
     <div class="kicker-row"><span class="bar"></span><span class="eyebrow">FAQ</span></div>
     <h2 class="sec-title">よくあるご質問。</h2>
@@ -397,20 +427,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- INTERMISSION -->
-<section id="intermission" class="alt">
-  <div class="wrap">
-    <div class="kicker-row"><span class="bar"></span><span class="eyebrow gold">OWNER IS A CAT-PERSON・オーナーは猫派</span></div>
-    <div class="inter-solo" style="margin-top:26px">
-      <div class="cat-frame" id="catFrame">
-        <div class="cat-ph">ここに Supreme の猫の写真を置いてください<br><code>supreme-cat.jpg</code></div>
-      </div>
-      <div class="cat-cap">Supreme の相棒</div>
-    </div>
-  </div>
-</section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
@@ -447,42 +463,64 @@ const CONFIG = {
 
   seasonMonths: 3.5,
 
-  scale: {   // 「①日本地域 → ②アジア/国際 → ③世界」3段階（すべて OWCS 2025・Esports Charts）
-    source: "Esports Charts・すべて OWCS 2025 シーズン",
+  monthlyDataUrl: "",   // ← 月次スナップショット(Looker Studio等)の公開URL。空の間は「準備中」枠を表示
+
+  // 進出シナリオ別の到達規模（数値はすべて OWCS 2025 の各イベント実測 / Esports Charts）
+  // ※同一ステージの比較ではなく「勝ち上がって立つ舞台が変わると到達がどう伸びるか」を示す
+  scale: {
+    source: "Esports Charts（すべて OWCS 2025 シーズンの実測）",
     rows: [
-      { tier:"① 日本地域",        event:"Japan Stage 2",         note:"日本語放送・99DIVINEの主戦場",            peak:35453,  avg:13459, hours:994789,  mediaValue:440441,  hl:true },
-      { tier:"② アジア / 国際大会", event:"Champions Clash（Stage 1）", note:"地域を勝ち上がった先の国際舞台（杭州）", peak:123917, avg:82146, hours:2067321, mediaValue:1255714 },
-      { tier:"③ 世界大会",        event:"World Finals（Stage 3）",  note:"世界の頂点（Stockholm）",                peak:177010, avg:null,  hours:4300000, mediaValue:null },
+      { tier:"① 日本地域リーグ",  event:"OWCS 2025 Japan Stage 2",   note:"日本語放送・99DIVINEの主戦場",              peak:35453,  avg:13459, hours:994789,  mediaValue:440441,  hl:true },
+      { tier:"② 国際大会 進出時", event:"OWCS 2025 Champions Clash", note:"地域を勝ち上がった先の国際大会（Stage 1・杭州）", peak:123917, avg:82146, hours:2067321, mediaValue:1255714 },
+      { tier:"③ 世界大会 進出時", event:"OWCS 2025 World Finals",    note:"シーズンの頂点（Stage 3・Stockholm）",        peak:177010, avg:null,  hours:4300000, mediaValue:null },
     ],
+    jpStages: "参考：Japan地域のステージ別実測ピーク＝Stage 1: 32,216／Stage 2: 35,453／Stage 3: 18,361",
+  },
+
+  // 国際大会（各年の代表的な国際イベント）のピーク推移。出典: Esports Charts / 2026は年初来
+  growth: {
+    note: "2023年はOWWC（世界大会）の突出値。2024年はOverwatch League終了に伴う移行期の谷。2025年に回復し、2026年は加速。2026国際大会の平均202,706は、過去2年の多くの大会のピークを上回る水準です。",
+    bars: [
+      { y:"2023", label:"OWWC 2023",                    peak:318800 },
+      { y:"2024", label:"OWCS 2024 Finals",             peak:159900 },
+      { y:"2025", label:"OWCS 2025 World Finals",       peak:177010 },
+      { y:"2026", label:"OWCS 2026 Champions Clash（東京・YTD）", peak:290606, hl:true },
+    ],
+    stats: [
+      { v:"約1.8倍", l:"国際大会ピーク視聴の成長（2024→2026）" },
+      { v:"約2.6倍", l:"総視聴時間の成長（2024→2026）" },
+      { v:"202,706", l:"2026 国際大会の平均同時視聴" },
+    ],
+    momentum: ["2026年、国際大会 Champions Clash が東京で開催","大型ストリーマー組織がOverwatch競技シーンへ参入","コミュニティ大会（CR Cup等）が拡大","2026年2月、Overwatch が大型リブランド"],
   },
 
   benchmarks: [
+    { id:"web",     label:"一般的なWeb / SNS広告",    cpm:800 },
     { id:"youtube", label:"YouTube動画広告",        cpm:1500 },
     { id:"sns",     label:"SNS広告（X / Instagram）", cpm:1000 },
     { id:"tv",      label:"テレビCM",                cpm:3000 },
     { id:"news",    label:"新聞広告",                cpm:5000 },
   ],
-  benchmarkDefault: "youtube",
+  benchmarkDefault: "web",
 
   tiers: [
     { id:"bronze", rank:"TIER 3", name:"BRONZE", jp:"ブロンズ協賛",
       tagline:"お試し感覚で、まずは一緒に。",
-      price:200000,  impressions:100000, reach:30000,
+      price:200000,  impressions:1500000,  reach:50000,
       feats:["配信オーバーレイにロゴ掲出","SNS投稿でのクレジット表記","シーズン総括レポート"] },
     { id:"silver", rank:"TIER 2", name:"SILVER", jp:"シルバー協賛",
       tagline:"1シーズンで、しっかり実証。",
-      price:400000,  impressions:280000, reach:80000,
+      price:400000,  impressions:4500000,  reach:120000,
       feats:["ブロンズの全特典","ユニフォーム / 配信背景にロゴ","選手・ストリーマー出演SNS 月1本","日・韓・英語圏への露出"] },
     { id:"gold",   rank:"TIER 1", name:"GOLD",   jp:"ゴールド協賛",
       tagline:"99DIVINEと共に、成長ストーリーを築く。",
-      price:1000000, impressions:800000, reach:220000,
+      price:1000000, impressions:12000000, reach:300000,
       feats:["シルバーの全特典","冠大会 / 冠コンテンツの実施","選手・ストリーマー起用コラボ","専属担当による個別運用","四半期ごとの効果レポート"] },
   ],
 
   about: {
     slogan: "ALWAYS CHASE THE 1%",
     motto: "LUCE IN ALTIS",
-    catPhoto: "supreme-cat.jpg",   // 猫写真のファイル名（リポジトリ直下）。空 "" で非表示
     intro: "99DIVINEは2024年設立のeスポーツチーム。チーム名には「99から100へ＝完璧に到達するための、無限の挑戦と可能性」という意味を込めています。OWCS Pacificで王者となったのち、2025年に拠点を日本へ移籍。競技チームに加え、ストリーマー部門・アカデミー・自主大会を擁し、大会の枠を越えて幅広い層へ届く構造を強みにしています。",
     owner: {
       name: "Supreme",
@@ -564,13 +602,14 @@ let activeBench = resolveBench(CONFIG.benchmarkDefault);
 
 /* ---------- build: hero / ticker / about / roster ---------- */
 function buildHero(){
-  const r=CONFIG.scale.rows, jp=r[0], gl=r[r.length-1];
+  const r=CONFIG.scale.rows, g=CONFIG.growth.bars[CONFIG.growth.bars.length-1];
   $("#heroStats").innerHTML = `
-    <div class="eyebrow gold" style="margin-bottom:14px">OWCS 2025 · 規模感</div>
-    <div class="row"><span class="num" style="color:var(--orange)">${fmt(gl.peak)}</span><span class="lbl">世界決勝 ピーク<br>同時視聴者</span></div>
-    <div class="row"><span class="num">${fmt(jp.peak)}</span><span class="lbl">日本地域 ピーク<br>同時視聴者</span></div>
-    <div class="row"><span class="num">$${Math.round(jp.mediaValue/1000)}K</span><span class="lbl">日本1ステージの<br>媒体価値（広告換算）</span></div>
-    <div class="row"><span class="num">${man(gl.hours)}<small style="font-size:14px">h</small></span><span class="lbl">総視聴時間<br>（世界決勝）</span></div>`;
+    <div class="eyebrow gold" style="margin-bottom:14px">OWCS 2025 · BY THE NUMBERS</div>
+    <div class="row"><span class="num" data-count="${r[0].peak}">0</span><span class="lbl">① 日本地域リーグ ピーク<br>（Japan Stage 2）</span></div>
+    <div class="row"><span class="num" data-count="${r[1].peak}">0</span><span class="lbl">② 国際大会 進出時<br>（Champions Clash）</span></div>
+    <div class="row"><span class="num" style="color:var(--orange)" data-count="${r[2].peak}">0</span><span class="lbl">③ 世界大会 進出時<br>（World Finals）</span></div>
+    <div class="row"><span class="num" style="color:var(--gold)" data-count="${g.peak}">0</span><span class="lbl">2026 国際大会ピーク（東京・YTD）<br>シーンは加速中</span></div>
+    <div style="font-size:11px;color:var(--muted-2);margin-top:10px">実測ピーク同時視聴（Esports Charts / OWCS 2025）。①〜③は進出シナリオ別の到達規模で、同一ステージの比較ではありません。</div>`;
 }
 function buildTicker(){
   const items=["99DIVINE","ALWAYS CHASE THE 1%","LUCE IN ALTIS","日・韓・英語圏へリーチ","熱量で届く広告","YOUR BRAND IN THE GAME"];
@@ -697,6 +736,7 @@ function buildCalc(){
 function setCalcTier(id){ calcTier=id; $("#calcSeg").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.getAttribute("data-t")===id)); renderCalc(); }
 function renderCalc(){
   const t=tierById(calcTier), sB=toSeason(parseNum($("#calcBudget").value),calcPeriod), q=computeQuote(sB,calcTier), mo=t.price/CONFIG.seasonMonths;
+  const adEq=t.impressions*q.benchCpm/1000, eff=q.divCpm>0?(q.benchCpm/q.divCpm):0;
   const rec=recommendTier(sB);
   $("#calcRec").innerHTML = parseNum($("#calcBudget").value) ? `ご予算 ${yen(sB)}（シーズン換算）の<b style="color:var(--gold)">おすすめは ${tierById(rec).name}</b>です。手動でも切替できます。` : "";
   $("#calcSeg").querySelectorAll("button").forEach(b=>b.classList.toggle("rec",b.getAttribute("data-t")===rec));
@@ -706,10 +746,11 @@ function renderCalc(){
     <div class="quote-grid">
       <div class="qcard"><div class="lbl">想定インプレッション</div><div class="big">${man(t.impressions)}</div></div>
       <div class="qcard"><div class="lbl">想定ユニークリーチ</div><div class="big">${man(t.reach)}</div></div>
-      <div class="qcard hl" style="grid-column:1/-1"><div class="lbl">99DIVINE 実質CPM</div><div class="big">${yen(q.divCpm)}</div><div class="sub">${esc(q.benchLabel)}（目安 ${yen(q.benchCpm)}）との比較 ↓</div></div>
+      <div class="qcard hl"><div class="lbl">実質CPM ・ 露出効率 約${eff.toFixed(1)}倍</div><div class="big">${yen(q.divCpm)}</div><div class="sub">${esc(q.benchLabel)}（目安 ${yen(q.benchCpm)}）比</div></div>
+      <div class="qcard hl"><div class="lbl">広告換算価値（目安）</div><div class="big">${yen(adEq)}</div><div class="sub">同量の露出を${esc(q.benchLabel)}で買った場合の概算</div></div>
     </div>
     ${compareBlock(q)}
-    <div class="note">※インプレッション/リーチは露出枠からの<b>推定（目標値）</b>で、確約値ではありません。ご予算に合わせて内容は柔軟に調整します。</div>
+    <div class="note">※想定値の算出根拠：OWCS Japan公式放送でのロゴ露出（平均同時視聴 × 出場試合の放送時間 × 表示機会）＋ チームSNS・動画の実測リーチ（X 年間約460万imp／YouTube 年間約17万回再生）に基づく<b>推定（目標値）</b>です。確約値ではなく、広告換算価値は比較媒体のCPMでの概算。具体的な数値・内容はお打ち合わせで一緒に明確にしていきます。</div>
     <div class="export-row">
       <a class="btn sm" id="calcMail" href="#">この内容で相談する →</a>
       <button class="btn sm gold" id="calcPdf">📄 PDF</button>
@@ -737,12 +778,48 @@ function buildScaleTable(){
             +row("総視聴時間",c=>man(c.hours)+"h")
             +row("媒体価値（広告換算）",c=>usd(c.mediaValue));
   host.innerHTML=`<div class="scale-wrap"><table class="scale-tbl"><thead>${head}</thead><tbody>${body}</tbody></table></div>
-    <p class="scale-note">出典：${esc(sc.source)}。99DIVINEは<b style="color:var(--gold-soft)">①日本地域</b>で戦い、勝ち上がると<b style="color:var(--gold-soft)">②国際大会</b>、さらに<b style="color:var(--gold-soft)">③世界大会</b>へと露出規模が拡大します。②は日本地域を勝ち抜いた先の、アジアを含む全地域が集う国際大会（Champions Clash）の数値です。「媒体価値」は広告換算の到達価値。</p>`;
+    <p class="scale-note">※これは<b style="color:var(--gold-soft)">同一ステージの比較ではありません</b>。「勝ち上がって立つ舞台が大きくなると、到達がこう伸びる」という<b style="color:var(--gold-soft)">進出シナリオ</b>です。数値はすべて OWCS 2025 の各イベント実測（${esc(sc.source)}）。②は日本地域を勝ち抜いた先の、アジアを含む全地域が集う国際大会。${esc(sc.jpStages)}。「媒体価値」は放送全体の広告換算値。</p>`;
 }
-function buildIntermission(){
-  const src=CONFIG.about.catPhoto, frame=$("#catFrame"); if(!frame) return;
-  if(src){ const img=new Image(); img.alt="Supreme and his cat"; img.onerror=()=>frame.classList.add("noimg"); img.src=src; frame.insertBefore(img,frame.firstChild); }
-  else { frame.classList.add("noimg"); }
+function buildGrowth(){
+  const g=CONFIG.growth, host=$("#growth"); if(!g||!host) return;
+  const max=Math.max(...g.bars.map(b=>b.peak));
+  host.innerHTML=`
+   <h3 style="font-weight:900;font-size:clamp(18px,2.6vw,24px);margin-top:52px">国際大会の視聴は、<span style="color:var(--gold)">再び成長軌道へ。</span></h3>
+   <div class="gbars">${g.bars.map(b=>`<div class="gb ${b.hl?'hl':''}"><div class="gcol"><i style="height:${Math.round(b.peak/max*100)}%"></i></div><div class="gv" data-count="${b.peak}">0</div><div class="gy">${esc(b.y)}</div><div class="gl">${esc(b.label)}</div></div>`).join("")}</div>
+   <div class="gstats">${g.stats.map(x=>`<div class="gs"><div class="v">${esc(x.v)}</div><div class="l">${esc(x.l)}</div></div>`).join("")}</div>
+   <p class="scale-note">${esc(g.note)}（出典：Esports Charts。ピークは各年の代表的な国際大会、2026年は年初来）。</p>
+   <div class="chips">${g.momentum.map(m=>`<span class="chip">▲ ${esc(m)}</span>`).join("")}</div>`;
+}
+function buildTeamStats(){
+  const host=$("#teamStats"); if(!host) return;
+  host.innerHTML=`<div class="gstats four" style="margin-top:26px">
+    <div class="gs"><div class="v" data-count="4600000">0</div><div class="l">X（旧Twitter）年間インプレッション（実測）</div></div>
+    <div class="gs"><div class="v" data-count="172266">0</div><div class="l">YouTube 年間視聴回数（実測）</div></div>
+    <div class="gs"><div class="v">約8割</div><div class="l">視聴者の18〜34歳比率（X・YouTube）</div></div>
+    <div class="gs"><div class="v">9割超</div><div class="l">日本国内比率（国内リーチ中心）</div></div>
+  </div>
+  <p class="scale-note">出典：X アカウントアナリティクス・YouTube Studio（各・直近の年間集計、実測値）。時点により変動します。年齢・地域はプラットフォーム推計です。</p>`;
+}
+function buildMonthlyEmbed(){
+  const host=$("#monthlyEmbed"); if(!host) return;
+  const url=CONFIG.monthlyDataUrl;
+  if(url){ host.innerHTML=`<div class="embed-frame"><iframe src="${esc(url)}" loading="lazy" allowfullscreen></iframe></div>`; }
+  else { host.innerHTML=`<div class="embed-frame ph"><div><div style="font-family:'Bebas Neue';font-size:26px;letter-spacing:.08em;color:var(--gold)">MONTHLY DASHBOARD — COMING SOON</div><p style="font-size:13px;color:var(--muted);margin-top:8px">2025年1月からの月次スナップショットを集計中。公開後、ここに最新ダッシュボードが表示されます。</p></div></div>`; }
+}
+function countUp(el){
+  const target=Number(el.getAttribute("data-count"))||0, dur=1200, t0=performance.now();
+  const step=t=>{ const p=Math.min(1,(t-t0)/dur), v=Math.round(target*(1-Math.pow(1-p,3))); el.textContent=v.toLocaleString("ja-JP"); if(p<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function fillCountsNow(){ document.querySelectorAll("[data-count]").forEach(el=>{ el.textContent=(Number(el.getAttribute("data-count"))||0).toLocaleString("ja-JP"); }); }
+function initAnims(){
+  document.querySelectorAll("section .wrap > *").forEach(el=>el.classList.add("rv"));
+  const reduce=(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if(reduce||typeof IntersectionObserver==="undefined"){ document.querySelectorAll(".rv").forEach(el=>el.classList.add("in")); fillCountsNow(); return; }
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }),{threshold:.1,rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+  const co=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ countUp(e.target); co.unobserve(e.target);} }),{threshold:.5});
+  document.querySelectorAll("[data-count]").forEach(el=>co.observe(el));
 }
 function buildContact(){
   $("#yr").textContent=new Date().getFullYear();
@@ -751,7 +828,7 @@ function buildContact(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
-  buildHero(); buildTicker(); buildAbout(); buildRoster(); buildScaleTable(); buildTiers(); buildCalc(); buildIntermission(); buildContact();
+  buildHero(); buildTicker(); buildAbout(); buildRoster(); buildScaleTable(); buildGrowth(); buildTeamStats(); buildMonthlyEmbed(); buildTiers(); buildCalc(); buildContact(); initAnims();
 });
 </script>
 </body>
