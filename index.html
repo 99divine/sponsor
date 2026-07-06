@@ -165,6 +165,10 @@ a{color:inherit}
 .roster-table .r .nmc{display:inline-flex;align-items:center;flex-wrap:wrap}
 .xbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:5px 11px;margin-top:12px;text-decoration:none;font-family:'Roboto Mono';transition:color .2s,border-color .2s,background .2s}
 .xbtn:hover{color:#fff;border-color:#fff;background:#000}
+.artlink{display:block;margin-top:16px;border:1px solid var(--line);border-left:3px solid var(--gold);background:rgba(200,169,110,.05);padding:12px 15px;text-decoration:none;transition:background .2s,border-color .2s}
+.artlink:hover{background:rgba(200,169,110,.12);border-left-color:var(--orange)}
+.al-eyebrow{display:block;font-family:'Bebas Neue';letter-spacing:.12em;color:var(--gold);font-size:11px}
+.al-title{display:block;color:#fff;font-size:13px;margin-top:4px;line-height:1.55}
 .foot-links{display:flex;gap:18px;align-items:center}
 .foot-links a{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;transition:color .2s,border-color .2s}
 .foot-links a:hover{color:var(--gold);border-color:var(--gold)}
@@ -562,6 +566,7 @@ const CONFIG = {
       realName: "佐藤 潤隼 / Mitsutoshi Sato",
       role: "Founder / Owner / Coach / Player",
       x: "https://x.com/supreme__ow",
+      interview: { url:"https://overwatch2-news.apexlegends-leaksnews.com/99divine-supreme/", label:"「パシフィック王者99DIVINEが日本を選んだ理由」― Supreme が語る、挑戦と信念" },
       bio: "佐藤 潤隼（Mitsutoshi \"Supreme\" Sato／1996年9月24日生）。韓国生まれ、日本とアメリカで育つ。パイロットライセンスを持ちながら、UCアーバインのOverwatchチームでプレイ。2024年に99DIVINEを設立し、選手兼CEOとして運営。OWCS Pacificを制したのち、王者の座を手放して自己資金で日本へ移籍。現地でトライアウトを行い、新たなルーキーを発掘してチームを再構築した。2026年にはFNATIC Apex（ALGS）へ短期コーチングメンターとしても参画。",
     },
     philosophy: {
@@ -664,7 +669,8 @@ function buildAbout(){
       <h3>オーナー / OWNER</h3>
       <div class="owner-head"><span class="nm">${esc(o.name)}</span><span class="rn">${esc(o.realName)} ・ ${esc(o.role)}</span></div>
       ${o.x?`<a class="xbtn" href="${esc(o.x)}" target="_blank" rel="noopener">${XSVG}<span>@${esc(o.x.split("/").pop())}</span></a>`:""}
-      <p style="color:var(--muted);font-size:14px;margin-top:10px">${esc(o.bio)}</p></div>` : "";
+      <p style="color:var(--muted);font-size:14px;margin-top:10px">${esc(o.bio)}</p>
+      ${o.interview?`<a class="artlink" href="${esc(o.interview.url)}" target="_blank" rel="noopener"><span class="al-eyebrow">▶ 過去のインタビュー記事</span><span class="al-title">${esc(o.interview.label)} →</span></a>`:""}</div>` : "";
   const ph=a.philosophy;
   $("#philosophy").innerHTML = ph ? `<div class="phi-wrap"><div class="phi-eyebrow">PHILOSOPHY / 信念</div><div class="phi-grid">${ph.items.map(x=>`<div class="phi"><div class="phi-term">${esc(x.term)}</div><div class="phi-mean">${esc(x.meaning)}</div></div>`).join("")}</div><p class="phi-belief">${esc(ph.belief)}</p></div>` : "";
   let prevY=null;
