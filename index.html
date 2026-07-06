@@ -141,6 +141,15 @@ a{color:inherit}
 .owner-head{display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
 .owner-head .nm{font-family:'Bebas Neue';font-size:36px;letter-spacing:.04em}
 .owner-head .rn{color:var(--muted);font-size:14px}
+.xl{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:middle;transition:color .2s,border-color .2s,background .2s;text-decoration:none}
+.xl:hover{color:#fff;border-color:#fff;background:#000}
+.xn{color:var(--muted-2);margin-left:6px;font-size:13px}
+.roster-table .r .nmc{display:inline-flex;align-items:center;flex-wrap:wrap}
+.xbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:5px 11px;margin-top:12px;text-decoration:none;font-family:'Roboto Mono';transition:color .2s,border-color .2s,background .2s}
+.xbtn:hover{color:#fff;border-color:#fff;background:#000}
+.foot-links{display:flex;gap:18px;align-items:center}
+.foot-links a{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;transition:color .2s,border-color .2s}
+.foot-links a:hover{color:var(--gold);border-color:var(--gold)}
 .timeline{list-style:none}
 .timeline li{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
 .timeline li:last-child{border-bottom:0}
@@ -443,6 +452,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
 
 <footer><div class="wrap">
   <div>© <span id="yr"></span> 99DIVINE — OWCS</div>
+  <div class="foot-links" id="footLinks"></div>
   <div class="mono" style="font-size:11.5px;color:var(--muted-2)">入力データは保存・送信されません / Built for sponsors</div>
 </div></footer>
 
@@ -459,6 +469,7 @@ const CONFIG = {
     name: "99DIVINE",
     contactEmail: "99divine@99divine.net",   // 公式
     xUrl: "https://x.com/99divine_",          // 公式X
+    linktree: "https://linktr.ee/99divine",   // Linktree
   },
 
   seasonMonths: 3.5,
@@ -526,6 +537,7 @@ const CONFIG = {
       name: "Supreme",
       realName: "佐藤 潤隼 / Mitsutoshi Sato",
       role: "Founder / Owner / Coach / Player",
+      x: "https://x.com/supreme__ow",
       bio: "佐藤 潤隼（Mitsutoshi \"Supreme\" Sato／1996年9月24日生）。韓国生まれ、日本とアメリカで育つ。パイロットライセンスを持ちながら、UCアーバインのOverwatchチームでプレイ。2024年に99DIVINEを設立し、選手兼CEOとして運営。OWCS Pacificを制したのち、王者の座を手放して自己資金で日本へ移籍。現地でトライアウトを行い、新たなルーキーを発掘してチームを再構築した。2026年にはFNATIC Apex（ALGS）へ短期コーチングメンターとしても参画。",
     },
     philosophy: {
@@ -562,26 +574,26 @@ const CONFIG = {
 
   roster: {
     players: [
-      { name:"Ichi",     role:"Player",           nationality:"JP / US",      language:"JP / EN" },
-      { name:"FodCarry", role:"Player",           nationality:"KR",           language:"KR / EN / JP" },
-      { name:"GACHAPIN", role:"Player",           nationality:"JP",           language:"JP" },
-      { name:"solace",   role:"Player",           nationality:"JP / CA / TW", language:"EN / JP" },
-      { name:"YangJun",  role:"Player",           nationality:"KR",           language:"KR" },
-      { name:"Sakume",   role:"Player",           nationality:"JP",           language:"JP" },
-      { name:"Supreme",  role:"Founder / Player", nationality:"JP / KR",      language:"JP / KR / EN" },
-      { name:"Gyomin",   role:"Coach",            nationality:"KR",           language:"KR" },
+      { name:"Ichi",     role:"Player",           nationality:"JP / US",      language:"JP / EN",     x:"https://x.com/OverW_ichi" },
+      { name:"FodCarry", role:"Player",           nationality:"KR",           language:"KR / EN / JP", x:"https://x.com/FodCarry_OW" },
+      { name:"GACHAPIN", role:"Player",           nationality:"JP",           language:"JP",          x:"https://x.com/GACHAPIN_ow" },
+      { name:"solace",   role:"Player",           nationality:"JP / CA / TW", language:"EN / JP",     x:"https://x.com/sorryimsolace" },
+      { name:"YangJun",  role:"Player",           nationality:"KR",           language:"KR",          x:"https://x.com/YangJun_OW" },
+      { name:"Sakume",   role:"Player",           nationality:"JP",           language:"JP",          x:"https://x.com/sakume_ow" },
+      { name:"Supreme",  role:"Founder / Player", nationality:"JP / KR",      language:"JP / KR / EN", x:"https://x.com/supreme__ow" },
+      { name:"Gyomin",   role:"Coach",            nationality:"KR",           language:"KR",          x:"" },
     ],
     streamers: [
-      { name:"うたぼっと",          role:"Streamer", nationality:"JP",      language:"JP" },
-      { name:"NALA (NASLASTHOPE)", role:"Streamer", nationality:"JP / US", language:"JP / EN" },
+      { name:"うたぼっと",          role:"Streamer", nationality:"JP",      language:"JP",     x:"https://x.com/UTABOT7" },
+      { name:"NALA (NASLASTHOPE)", role:"Streamer", nationality:"JP / US", language:"JP / EN", x:"" },
     ],
     staff: [
-      { name:"KAY",      role:"ビジネス / 実況解説",     nationality:"JP", language:"JP" },
-      { name:"うたぼっと", role:"ビジネス / ストリーマー", nationality:"JP", language:"JP" },
-      { name:"てんこ",    role:"デザイン",              nationality:"JP", language:"JP" },
-      { name:"えぢと",    role:"コンテンツ",            nationality:"JP", language:"JP / EN" },
-      { name:"YENA",     role:"デザイン",              nationality:"KR", language:"KR / EN" },
-      { name:"BINAH",    role:"デザイン",              nationality:"KR", language:"KR" },
+      { name:"KAY",      role:"ビジネス / 実況解説",     nationality:"JP", language:"JP",     x:"https://x.com/Kaynora43" },
+      { name:"うたぼっと", role:"ビジネス / ストリーマー", nationality:"JP", language:"JP",     x:"https://x.com/UTABOT7" },
+      { name:"てんこ",    role:"デザイン",              nationality:"JP", language:"JP",     x:"https://x.com/7enko_" },
+      { name:"えぢと",    role:"コンテンツ",            nationality:"JP", language:"JP / EN", x:"https://x.com/edittto" },
+      { name:"YENA",     role:"デザイン",              nationality:"KR", language:"KR / EN", x:"https://x.com/yenaisye" },
+      { name:"BINAH",    role:"デザイン",              nationality:"KR", language:"KR",     x:"" },
     ],
   },
 };
@@ -601,6 +613,8 @@ function resolveBench(id){ const b=CONFIG.benchmarks.find(x=>x.id===id)||CONFIG.
 let activeBench = resolveBench(CONFIG.benchmarkDefault);
 
 /* ---------- build: hero / ticker / about / roster ---------- */
+const XSVG='<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+function xlink(u){ return u ? `<a class="xl" href="${esc(u)}" target="_blank" rel="noopener" aria-label="Xを開く">${XSVG}</a>` : `<span class="xn">—</span>`; }
 function buildHero(){
   const r=CONFIG.scale.rows, g=CONFIG.growth.bars[CONFIG.growth.bars.length-1];
   $("#heroStats").innerHTML = `
@@ -625,6 +639,7 @@ function buildAbout(){
   $("#ownerBox").innerHTML = o ? `<div class="panelbox">
       <h3>オーナー / OWNER</h3>
       <div class="owner-head"><span class="nm">${esc(o.name)}</span><span class="rn">${esc(o.realName)} ・ ${esc(o.role)}</span></div>
+      ${o.x?`<a class="xbtn" href="${esc(o.x)}" target="_blank" rel="noopener">${XSVG}<span>@${esc(o.x.split("/").pop())}</span></a>`:""}
       <p style="color:var(--muted);font-size:14px;margin-top:10px">${esc(o.bio)}</p></div>` : "";
   const ph=a.philosophy;
   $("#philosophy").innerHTML = ph ? `<div class="phi-wrap"><div class="phi-eyebrow">PHILOSOPHY / 信念</div><div class="phi-grid">${ph.items.map(x=>`<div class="phi"><div class="phi-term">${esc(x.term)}</div><div class="phi-mean">${esc(x.meaning)}</div></div>`).join("")}</div><p class="phi-belief">${esc(ph.belief)}</p></div>` : "";
@@ -634,7 +649,7 @@ function buildAbout(){
 }
 function buildRoster(){
   const grp=(title,jp,arr)=>{
-    const rows=(arr&&arr.length)?arr.map(m=>`<div class="r"><span>${esc(m.name)}</span><span>${esc(m.role)}</span><span>${esc(m.nationality)}</span><span>${esc(m.language)}</span></div>`).join("")
+    const rows=(arr&&arr.length)?arr.map(m=>`<div class="r"><span class="nmc">${esc(m.name)} ${xlink(m.x)}</span><span>${esc(m.role)}</span><span>${esc(m.nationality)}</span><span>${esc(m.language)}</span></div>`).join("")
       :`<div class="r empty">（メンバーを CONFIG.roster に追加してください）</div>`;
     return `<div class="roster-block"><div class="roster-h">${title}<span class="jp">${jp}</span></div>
       <div class="roster-table"><div class="r head"><span>名前</span><span>役割</span><span>国籍</span><span>言語</span></div>${rows}</div></div>`;
@@ -825,6 +840,7 @@ function buildContact(){
   $("#yr").textContent=new Date().getFullYear();
   $("#mailBtn").href=`mailto:${CONFIG.team.contactEmail}?subject=${encodeURIComponent("【スポンサーシップ相談】99DIVINE")}`;
   const x=$("#xBtn"); x.href=CONFIG.team.xUrl; x.target="_blank"; x.rel="noopener";
+  const fl=$("#footLinks"); if(fl){ fl.innerHTML=`<a href="${esc(CONFIG.team.linktree)}" target="_blank" rel="noopener">Linktree</a><a href="${esc(CONFIG.team.xUrl)}" target="_blank" rel="noopener">公式X ${XSVG}</a>`; }
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
