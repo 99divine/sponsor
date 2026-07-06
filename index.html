@@ -105,15 +105,33 @@ a{color:inherit}
 .scale-tbl .hl{background:rgba(204,85,0,.08)}
 .scale-tbl th.hl{color:var(--orange)}
 .scale-note{font-size:12px;color:var(--muted-2);margin-top:12px;line-height:1.8}
-.gbars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;align-items:end}
-@media(max-width:640px){.gbars{grid-template-columns:repeat(2,1fr);gap:18px}}
-.gb .gcol{height:150px;display:flex;align-items:flex-end;background:#000;border:2px solid var(--line);padding:6px}
-.gb .gcol i{display:block;width:100%;background:var(--muted-2);transition:height 1.1s cubic-bezier(.2,.7,.2,1)}
-.gb.hl .gcol i{background:var(--orange)}
-.gb .gv{font-family:'Bebas Neue';font-size:23px;margin-top:8px}
-.gb.hl .gv{color:var(--orange)}
-.gb .gy{font-family:'Bebas Neue';color:var(--gold);font-size:16px;letter-spacing:.08em}
-.gb .gl{font-size:11px;color:var(--muted);line-height:1.4}
+.lchart-wrap{margin-top:20px;border:2px solid var(--line);background:var(--panel);box-shadow:6px 6px 0 #000;padding:12px 8px}
+.lchart{width:100%;height:auto;display:block}
+.lchart .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:2 6}
+.lchart .areafill{fill:rgba(204,85,0,.10);stroke:none}
+.lchart .lline{fill:none;stroke:var(--orange);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.lchart .dot{fill:#0D0D0D;stroke:var(--orange);stroke-width:3}
+.lchart .dot.hl{fill:var(--gold);stroke:var(--gold)}
+.lchart .pv{fill:#fff;font-family:'Bebas Neue';font-size:18px}
+.lchart .pv.hl{fill:var(--gold)}
+.lchart .py{fill:var(--gold);font-family:'Bebas Neue';font-size:15px;letter-spacing:.05em}
+.lchart .pl{fill:var(--muted);font-size:10px}
+.data-sub{font-family:'Bebas Neue','Noto Sans JP';font-weight:900;font-size:clamp(16px,2.2vw,20px);letter-spacing:.02em;margin:42px 0 4px;color:#fff;display:flex;align-items:center;gap:10px}
+.data-sub::before{content:"";width:16px;height:3px;background:var(--gold)}
+.mrange{max-width:380px;margin-top:8px}
+.tmetrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 10px;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);padding:12px 0}
+.tmetrics>div{text-align:center}
+.tmetrics b{display:block;font-family:'Bebas Neue';font-size:22px;line-height:1;color:#fff}
+.tmetrics span{font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.troi{font-size:12.5px;color:var(--gold-soft);background:rgba(200,169,110,.07);border-left:3px solid var(--orange);padding:8px 12px;margin-bottom:8px}
+.troi b{color:#fff}
+.calc-adv{border:1px solid var(--line);background:#000;margin:4px 0 12px}
+.calc-adv summary{cursor:pointer;padding:11px 14px;font-size:13px;color:var(--muted);list-style:none}
+.calc-adv summary::-webkit-details-marker{display:none}
+.calc-adv summary::before{content:"\2699  ";color:var(--gold)}
+.calc-adv[open] summary{border-bottom:1px solid var(--line)}
+.calc-adv .field{margin:14px}
+.calc-headline{border:2px solid var(--orange);background:rgba(204,85,0,.08);padding:14px 16px;font-size:14px;line-height:1.7;margin-bottom:16px}
 .gstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
 .gstats.four{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){.gstats.four{grid-template-columns:repeat(2,1fr)}}
@@ -370,7 +388,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
     <div class="kicker-row"><span class="bar"></span><span class="eyebrow gold">DATA · MONTHLY SNAPSHOT</span></div>
     <h2 class="sec-title">数字は、毎月更新。</h2>
     <p class="lead" style="margin-top:16px">2025年1月から、露出・視聴・SNSの月次スナップショットを記録しています。スポンサー様には、加工していない最新の実測データをそのままご覧いただきます。まずは現時点の年間実測から。</p>
+    <h3 class="data-sub">年間実測（現時点）</h3>
     <div id="teamStats"></div>
+    <h3 class="data-sub">月次ダッシュボード（Looker Studio）</h3>
     <div id="monthlyEmbed"></div>
   </div>
 </section>
@@ -406,9 +426,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
           <div class="inwrap"><span class="unit">¥</span><input id="calcBudget" type="text" inputmode="numeric" value="400,000"></div></div>
         <div class="calc-rec" id="calcRec"></div>
         <div class="field"><label>プランの選択（★＝ご予算のおすすめ）</label><div class="seg" id="calcSeg"></div></div>
-        <div class="field"><label>比較する広告媒体</label><select id="calcMedium"></select></div>
-        <div class="field"><label>その媒体のCPM（目安・編集可）</label>
-          <div class="inwrap"><span class="unit">¥</span><input id="calcBench" type="text" inputmode="numeric"></div></div>
+        <details class="calc-adv"><summary>詳細設定：比較する広告媒体・CPM</summary>
+          <div class="field"><label>比較する広告媒体</label><select id="calcMedium"></select></div>
+          <div class="field"><label>その媒体のCPM（目安・編集可）</label>
+            <div class="inwrap"><span class="unit">¥</span><input id="calcBench" type="text" inputmode="numeric"></div></div>
+        </details>
         <div class="note"><b>CPMとは？</b> 広告を1,000回表示するのにかかる費用（Cost Per Mille）。低いほど効率的に届きます。</div>
       </div>
       <div class="out-side" id="calcOut"></div>
@@ -474,7 +496,9 @@ const CONFIG = {
 
   seasonMonths: 3.5,
 
-  monthlyDataUrl: "",   // ← 月次スナップショット(Looker Studio等)の公開URL。空の間は「準備中」枠を表示
+  // 月次ダッシュボード(Looker Studio)の埋め込みURL。期間ごとに用意（1つだけでも可）。空の間は「準備中」枠
+  monthlyEmbeds: { m1:"", m3:"", m6:"" },
+  monthlyOpenUrl: "",   // 「全画面で開く」用の公開URL（任意）
 
   // 進出シナリオ別の到達規模（数値はすべて OWCS 2025 の各イベント実測 / Esports Charts）
   // ※同一ステージの比較ではなく「勝ち上がって立つ舞台が変わると到達がどう伸びるか」を示す
@@ -492,10 +516,10 @@ const CONFIG = {
   growth: {
     note: "2023年はOWWC（世界大会）の突出値。2024年はOverwatch League終了に伴う移行期の谷。2025年に回復し、2026年は加速。2026国際大会の平均202,706は、過去2年の多くの大会のピークを上回る水準です。",
     bars: [
-      { y:"2023", label:"OWWC 2023",                    peak:318800 },
-      { y:"2024", label:"OWCS 2024 Finals",             peak:159900 },
-      { y:"2025", label:"OWCS 2025 World Finals",       peak:177010 },
-      { y:"2026", label:"OWCS 2026 Champions Clash（東京・YTD）", peak:290606, hl:true },
+      { y:"2023", label:"OWWC",            peak:318800 },
+      { y:"2024", label:"OWCS Finals",     peak:159900 },
+      { y:"2025", label:"World Finals",    peak:177010 },
+      { y:"2026", label:"Champions Clash", peak:290606, hl:true },
     ],
     stats: [
       { v:"約1.8倍", l:"国際大会ピーク視聴の成長（2024→2026）" },
@@ -581,14 +605,14 @@ const CONFIG = {
       { name:"YangJun",  role:"Player",           nationality:"KR",           language:"KR",          x:"https://x.com/YangJun_OW" },
       { name:"Sakume",   role:"Player",           nationality:"JP",           language:"JP",          x:"https://x.com/sakume_ow" },
       { name:"Supreme",  role:"Founder / Player", nationality:"JP / KR",      language:"JP / KR / EN", x:"https://x.com/supreme__ow" },
-      { name:"Gyomin",   role:"Coach",            nationality:"KR",           language:"KR",          x:"" },
+      { name:"Gyomin",   role:"Coach",            nationality:"KR",           language:"KR",          x:"https://x.com/justgyomin" },
     ],
     streamers: [
       { name:"うたぼっと",          role:"Streamer", nationality:"JP",      language:"JP",     x:"https://x.com/UTABOT7" },
       { name:"NALA (NASLASTHOPE)", role:"Streamer", nationality:"JP / US", language:"JP / EN", x:"" },
     ],
     staff: [
-      { name:"KAY",      role:"ビジネス / 実況解説",     nationality:"JP", language:"JP",     x:"https://x.com/Kaynora43" },
+      { name:"KAY",      role:"ビジネス / 実況",         nationality:"JP", language:"JP",     x:"https://x.com/Kaynora43" },
       { name:"うたぼっと", role:"ビジネス / ストリーマー", nationality:"JP", language:"JP",     x:"https://x.com/UTABOT7" },
       { name:"てんこ",    role:"デザイン",              nationality:"JP", language:"JP",     x:"https://x.com/7enko_" },
       { name:"えぢと",    role:"コンテンツ",            nationality:"JP", language:"JP / EN", x:"https://x.com/edittto" },
@@ -660,15 +684,24 @@ function buildRoster(){
 
 /* ---------- plans ---------- */
 function buildTiers(){
-  $("#tiers").innerHTML=CONFIG.tiers.map(t=>`
-    <div class="tier">
+  const bench=CONFIG.benchmarks.find(b=>b.id===CONFIG.benchmarkDefault)||CONFIG.benchmarks[0];
+  $("#tiers").innerHTML=CONFIG.tiers.map(t=>{
+    const cpm=cpmOf(t), adEq=t.impressions*bench.cpm/1000, eff=bench.cpm/cpm;
+    return `<div class="tier">
       <div class="rank">${t.rank}</div><div class="name">${t.name}</div><div class="jp">${t.jp}</div>
       <div class="tagline">${esc(t.tagline)}</div>
       <div class="price">${yen(t.price)}<small> / シーズン</small></div>
-      <div class="mo">≈ 月 ${yen(t.price/CONFIG.seasonMonths)} ・ 想定リーチ ${man(t.reach)} ・ CPM目安 ${yen(cpmOf(t))}</div>
+      <div class="mo">≈ 月 ${yen(t.price/CONFIG.seasonMonths)}</div>
+      <div class="tmetrics">
+        <div><b>${man(t.impressions)}</b><span>想定インプレッション</span></div>
+        <div><b>${man(t.reach)}</b><span>想定リーチ</span></div>
+        <div><b>${yen(cpm)}</b><span>実質CPM</span></div>
+      </div>
+      <div class="troi">広告換算 <b>${yen(adEq)}</b> 相当 ・ ${esc(bench.label)}比 <b>約${eff.toFixed(1)}倍</b>の効率</div>
       <ul class="feats">${t.feats.map(f=>`<li>${f}</li>`).join("")}</ul>
       <a href="#simulator" class="btn ghost" data-pick="${t.id}">このプランで試算 →</a>
-    </div>`).join("");
+    </div>`;
+  }).join("");
   document.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener("click",()=>setCalcTier(b.getAttribute("data-pick"))));
 }
 
@@ -757,7 +790,8 @@ function renderCalc(){
   $("#calcSeg").querySelectorAll("button").forEach(b=>b.classList.toggle("rec",b.getAttribute("data-t")===rec));
   $("#calcOut").innerHTML=`
     <h4>${t.name} プランでの概算</h4>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:18px">${t.rank} ・ ${esc(t.jp)} ・ シーズン料金 ${yen(t.price)}（≈ 月 ${yen(mo)}）</p>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:14px">${t.rank} ・ ${esc(t.jp)} ・ シーズン料金 ${yen(t.price)}（≈ 月 ${yen(mo)}）</p>
+    <div class="calc-headline"><b style="color:var(--orange)">${t.name}</b>：想定 <b>${man(t.impressions)}</b> インプレッション ・ 広告換算 <b>${yen(adEq)}</b> 相当 ・ ${esc(q.benchLabel)}比 <b>約${eff.toFixed(1)}倍</b>の効率。</div>
     <div class="quote-grid">
       <div class="qcard"><div class="lbl">想定インプレッション</div><div class="big">${man(t.impressions)}</div></div>
       <div class="qcard"><div class="lbl">想定ユニークリーチ</div><div class="big">${man(t.reach)}</div></div>
@@ -797,10 +831,23 @@ function buildScaleTable(){
 }
 function buildGrowth(){
   const g=CONFIG.growth, host=$("#growth"); if(!g||!host) return;
-  const max=Math.max(...g.bars.map(b=>b.peak));
+  const bars=g.bars, n=bars.length, W=840, H=300, padX=58, padTop=52, padBot=54;
+  const max=Math.max(...bars.map(b=>b.peak))*1.14;
+  const X=i=> padX + i*((W-padX*2)/(n-1));
+  const Y=v=> padTop + (1-v/max)*(H-padTop-padBot);
+  const pts=bars.map((b,i)=>({x:X(i),y:Y(b.peak),b}));
+  const line=pts.map(pp=>`${pp.x.toFixed(1)},${pp.y.toFixed(1)}`).join(" ");
+  const area=`${padX},${H-padBot} ${line} ${(W-padX)},${H-padBot}`;
+  const grid=[0.25,0.5,0.75,1].map(f=>`<line x1="${padX}" y1="${Y(max*f).toFixed(1)}" x2="${W-padX}" y2="${Y(max*f).toFixed(1)}" class="grid"/>`).join("");
+  const dots=pts.map(pp=>`<circle cx="${pp.x.toFixed(1)}" cy="${pp.y.toFixed(1)}" r="${pp.b.hl?7:5}" class="dot ${pp.b.hl?'hl':''}"/>`
+    +`<text x="${pp.x.toFixed(1)}" y="${(pp.y-15).toFixed(1)}" text-anchor="middle" class="pv ${pp.b.hl?'hl':''}">${man(pp.b.peak)}</text>`
+    +`<text x="${pp.x.toFixed(1)}" y="${(H-padBot+26).toFixed(1)}" text-anchor="middle" class="py">${esc(pp.b.y)}</text>`
+    +`<text x="${pp.x.toFixed(1)}" y="${(H-padBot+42).toFixed(1)}" text-anchor="middle" class="pl">${esc(pp.b.label)}</text>`).join("");
+  const svg=`<svg viewBox="0 0 ${W} ${H}" class="lchart" preserveAspectRatio="xMidYMid meet" role="img" aria-label="国際大会ピーク視聴の推移 2023-2026">${grid}<polygon points="${area}" class="areafill"/><polyline points="${line}" class="lline"/>${dots}</svg>`;
   host.innerHTML=`
    <h3 style="font-weight:900;font-size:clamp(18px,2.6vw,24px);margin-top:52px">国際大会の視聴は、<span style="color:var(--gold)">再び成長軌道へ。</span></h3>
-   <div class="gbars">${g.bars.map(b=>`<div class="gb ${b.hl?'hl':''}"><div class="gcol"><i style="height:${Math.round(b.peak/max*100)}%"></i></div><div class="gv" data-count="${b.peak}">0</div><div class="gy">${esc(b.y)}</div><div class="gl">${esc(b.label)}</div></div>`).join("")}</div>
+   <p class="lead" style="margin-top:10px;font-size:14px">各年の代表的な国際大会の<b style="color:#fff">ピーク同時視聴者数</b>。2023年の突出（OWWC）→ 2024年の谷（OWL終了）→ 回復 → 2026年の加速、という実際の推移です。</p>
+   <div class="lchart-wrap">${svg}</div>
    <div class="gstats">${g.stats.map(x=>`<div class="gs"><div class="v">${esc(x.v)}</div><div class="l">${esc(x.l)}</div></div>`).join("")}</div>
    <p class="scale-note">${esc(g.note)}（出典：Esports Charts。ピークは各年の代表的な国際大会、2026年は年初来）。</p>
    <div class="chips">${g.momentum.map(m=>`<span class="chip">▲ ${esc(m)}</span>`).join("")}</div>`;
@@ -815,11 +862,20 @@ function buildTeamStats(){
   </div>
   <p class="scale-note">出典：X アカウントアナリティクス・YouTube Studio（各・直近の年間集計、実測値）。時点により変動します。年齢・地域はプラットフォーム推計です。</p>`;
 }
+let monthlyRange="m1";
 function buildMonthlyEmbed(){
   const host=$("#monthlyEmbed"); if(!host) return;
-  const url=CONFIG.monthlyDataUrl;
-  if(url){ host.innerHTML=`<div class="embed-frame"><iframe src="${esc(url)}" loading="lazy" allowfullscreen></iframe></div>`; }
-  else { host.innerHTML=`<div class="embed-frame ph"><div><div style="font-family:'Bebas Neue';font-size:26px;letter-spacing:.08em;color:var(--gold)">MONTHLY DASHBOARD — COMING SOON</div><p style="font-size:13px;color:var(--muted);margin-top:8px">2025年1月からの月次スナップショットを集計中。公開後、ここに最新ダッシュボードが表示されます。</p></div></div>`; }
+  const em=CONFIG.monthlyEmbeds||{}, jp={m1:"1か月",m3:"3か月",m6:"半年"};
+  host.innerHTML=`<div class="seg mrange" id="mrange"><button data-r="m1" class="on">1か月</button><button data-r="m3">3か月</button><button data-r="m6">半年</button></div>
+    <div id="mframe"></div>
+    ${CONFIG.monthlyOpenUrl?`<a class="btn sm ghost" href="${esc(CONFIG.monthlyOpenUrl)}" target="_blank" rel="noopener" style="margin-top:14px">全画面で開く →</a>`:""}
+    <p class="scale-note">Looker Studio で作成した月次スナップショットを埋め込み表示します。期間はボタンで切替。データは自動更新されるため、常に最新の実測をご覧いただけます。</p>`;
+  const render=()=>{ const url=em[monthlyRange], f=$("#mframe");
+    f.innerHTML = url ? `<div class="embed-frame"><iframe src="${esc(url)}" loading="lazy" allowfullscreen></iframe></div>`
+      : `<div class="embed-frame ph"><div><div style="font-family:'Bebas Neue';font-size:24px;letter-spacing:.08em;color:var(--gold)">DASHBOARD — 準備中（${jp[monthlyRange]}）</div><p style="font-size:13px;color:var(--muted);margin-top:8px">この期間のLooker Studio埋め込みURLを CONFIG.monthlyEmbeds.${monthlyRange} に設定すると、ここに表示されます。</p></div></div>`;
+  };
+  $("#mrange").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ monthlyRange=b.getAttribute("data-r"); $("#mrange").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); render(); }));
+  render();
 }
 function countUp(el){
   const target=Number(el.getAttribute("data-count"))||0, dur=1200, t0=performance.now();
