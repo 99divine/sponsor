@@ -123,8 +123,8 @@ a{color:inherit}
 .tmetrics>div{text-align:center}
 .tmetrics b{display:block;font-family:'Bebas Neue';font-size:22px;line-height:1;color:#fff}
 .tmetrics span{font-size:10.5px;color:var(--muted);letter-spacing:.02em}
-.troi{font-size:12.5px;color:var(--gold-soft);background:rgba(200,169,110,.07);border-left:3px solid var(--orange);padding:8px 12px;margin-bottom:8px}
-.troi b{color:#fff}
+.tbasis{font-size:11.5px;color:var(--muted);background:#000;border:1px solid var(--line);padding:8px 11px;margin-bottom:8px;line-height:1.65}
+.tbasis b{color:var(--gold)}
 .calc-adv{border:1px solid var(--line);background:#000;margin:4px 0 12px}
 .calc-adv summary{cursor:pointer;padding:11px 14px;font-size:13px;color:var(--muted);list-style:none}
 .calc-adv summary::-webkit-details-marker{display:none}
@@ -407,7 +407,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
     <div class="kicker-row"><span class="bar"></span><span class="eyebrow gold">PARTNERSHIP PLANS</span></div>
     <h2 class="sec-title">3つのプラン。</h2>
     <p class="lead" style="margin-top:16px">まずは小さくお試しからでOK。ご予算に合わせて柔軟に調整します（カスタムのご相談も歓迎です）。</p>
-    <div class="note" style="max-width:none">※掲載の数値はすべて<b>推定（目標とする想定値）</b>で、実績の保証ではありません。想定インプレッションは、OWCS公式放送でのロゴ露出とチームSNSの実測リーチに基づく試算です。具体的な内容・数値は、お打ち合わせを重ねながら一緒に明確にしていきます。</div>
+    <div class="note" style="max-width:none">※各プランの想定インプレッションは、公式放送・チームX（年間実測460万）・YouTube（年間実測17万）・メンバー配信を露出面ごとに積み上げた<b>推定（目標値）</b>です（各カードに内訳を記載）。実質CPMは概ね¥1,100〜1,800で、<b>YouTube動画広告（¥1,500前後）と同水準</b>。私たちの価値は&quot;安さ&quot;ではなく、18–34歳・日本9割の熱量あるファンへ文脈ごと届く<b>的中率</b>にあります。メンバー拡大で配信面は今後さらに伸びます。</div>
     <div class="tiers" id="tiers"></div>
   </div>
 </section>
@@ -427,7 +427,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
         <div class="field"><label>予算の期間</label>
           <div class="seg" id="calcPeriod"><button data-p="season" class="on">シーズン（3〜4か月）</button><button data-p="month">月間</button></div></div>
         <div class="field"><label id="calcBudgetLabel">シーズン予算</label>
-          <div class="inwrap"><span class="unit">¥</span><input id="calcBudget" type="text" inputmode="numeric" value="400,000"></div></div>
+          <div class="inwrap"><span class="unit">¥</span><input id="calcBudget" type="text" inputmode="numeric" value="450,000"></div></div>
         <div class="calc-rec" id="calcRec"></div>
         <div class="field"><label>プランの選択（★＝ご予算のおすすめ）</label><div class="seg" id="calcSeg"></div></div>
         <details class="calc-adv"><summary>詳細設定：比較する広告媒体・CPM</summary>
@@ -534,27 +534,31 @@ const CONFIG = {
   },
 
   benchmarks: [
-    { id:"web",     label:"一般的なWeb / SNS広告",    cpm:800 },
     { id:"youtube", label:"YouTube動画広告",        cpm:1500 },
+    { id:"esports", label:"eスポーツ協賛（相場）",    cpm:2500 },
+    { id:"web",     label:"一般的なWeb / SNS広告",    cpm:800 },
     { id:"sns",     label:"SNS広告（X / Instagram）", cpm:1000 },
     { id:"tv",      label:"テレビCM",                cpm:3000 },
     { id:"news",    label:"新聞広告",                cpm:5000 },
   ],
-  benchmarkDefault: "web",
+  benchmarkDefault: "youtube",
 
   tiers: [
-    { id:"bronze", rank:"TIER 3", name:"BRONZE", jp:"ブロンズ協賛",
-      tagline:"お試し感覚で、まずは一緒に。",
-      price:200000,  impressions:1500000,  reach:50000,
-      feats:["配信オーバーレイにロゴ掲出","SNS投稿でのクレジット表記","シーズン総括レポート"] },
-    { id:"silver", rank:"TIER 2", name:"SILVER", jp:"シルバー協賛",
+    { id:"trial", rank:"ENTRY", name:"TRIAL", jp:"トライアル協賛",
+      tagline:"まずはお試しで、一緒に。",
+      price:200000, impressions:110000, reach:30000,
+      basis:"公式放送 約6万＋チームX 約4万＋YouTube 約1万 ＝ 約11万",
+      feats:["公式放送・チーム紹介時にロゴ掲出","チームX投稿でのクレジット表記","YouTube概要欄・動画内クレジット","シーズン総括レポート"] },
+    { id:"base", rank:"STANDARD", name:"BASE", jp:"ベース協賛",
       tagline:"1シーズンで、しっかり実証。",
-      price:400000,  impressions:4500000,  reach:120000,
-      feats:["ブロンズの全特典","ユニフォーム / 配信背景にロゴ","選手・ストリーマー出演SNS 月1本","日・韓・英語圏への露出"] },
-    { id:"gold",   rank:"TIER 1", name:"GOLD",   jp:"ゴールド協賛",
+      price:450000, impressions:390000, reach:70000,
+      basis:"公式放送 約19万＋SNS 約12万＋配信/動画/ユニフォーム 約8万 ＝ 約39万",
+      feats:["TRIALの全特典","ユニフォーム／配信画面にロゴ","チームX プロフィールバナー掲載","選手・メンバー出演SNS 月1本","メンバー配信でのバナー露出"] },
+    { id:"partner", rank:"FLAGSHIP", name:"PARTNER", jp:"パートナー協賛",
       tagline:"99DIVINEと共に、成長ストーリーを築く。",
-      price:1000000, impressions:12000000, reach:300000,
-      feats:["シルバーの全特典","冠大会 / 冠コンテンツの実施","選手・ストリーマー起用コラボ","専属担当による個別運用","四半期ごとの効果レポート"] },
+      price:990000, impressions:780000, reach:130000,
+      basis:"公式放送 約32万＋SNS 約33万＋配信/動画/ユニフォーム 約13万 ＝ 約78万",
+      feats:["BASEの全特典","冠コンテンツ／冠企画の実施","選手・ストリーマー起用コラボ","Booth・グッズ／ユニフォーム販売でのロゴ展開","専属担当の個別運用・四半期レポート"] },
   ],
 
   about: {
@@ -637,7 +641,7 @@ const tierById = id => CONFIG.tiers.find(t => t.id===id);
 const toSeason = (amt, period) => period==="month" ? amt*CONFIG.seasonMonths : amt;
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function man(n){ if(n>=10000){ const v=n/10000; return (v>=100?v.toFixed(0):v.toFixed(1)).replace(/\.0$/,"")+"万"; } return fmt(n); }
-function recommendTier(seasonB){ if(seasonB>=tierById("gold").price) return "gold"; if(seasonB>=tierById("silver").price) return "silver"; return "bronze"; }
+function recommendTier(seasonB){ const s=[...CONFIG.tiers].sort((a,b)=>b.price-a.price); for(const t of s){ if(seasonB>=t.price) return t.id; } return CONFIG.tiers[0].id; }
 function resolveBench(id){ const b=CONFIG.benchmarks.find(x=>x.id===id)||CONFIG.benchmarks[0]; return {id:b.id,label:b.label,cpm:b.cpm}; }
 let activeBench = resolveBench(CONFIG.benchmarkDefault);
 
@@ -690,9 +694,8 @@ function buildRoster(){
 
 /* ---------- plans ---------- */
 function buildTiers(){
-  const bench=CONFIG.benchmarks.find(b=>b.id===CONFIG.benchmarkDefault)||CONFIG.benchmarks[0];
   $("#tiers").innerHTML=CONFIG.tiers.map(t=>{
-    const cpm=cpmOf(t), adEq=t.impressions*bench.cpm/1000, eff=bench.cpm/cpm;
+    const cpm=cpmOf(t);
     return `<div class="tier">
       <div class="rank">${t.rank}</div><div class="name">${t.name}</div><div class="jp">${t.jp}</div>
       <div class="tagline">${esc(t.tagline)}</div>
@@ -703,7 +706,7 @@ function buildTiers(){
         <div><b>${man(t.reach)}</b><span>想定リーチ</span></div>
         <div><b>${yen(cpm)}</b><span>実質CPM</span></div>
       </div>
-      <div class="troi">広告換算 <b>${yen(adEq)}</b> 相当 ・ ${esc(bench.label)}比 <b>約${eff.toFixed(1)}倍</b>の効率</div>
+      <div class="tbasis"><b>内訳：</b>${esc(t.basis||"")}</div>
       <ul class="feats">${t.feats.map(f=>`<li>${f}</li>`).join("")}</ul>
       <a href="#simulator" class="btn ghost" data-pick="${t.id}">このプランで試算 →</a>
     </div>`;
@@ -771,7 +774,7 @@ function copySummary(c,btn){
 }
 
 /* ---------- the single tool ---------- */
-let calcTier="silver", calcPeriod="season";
+let calcTier="base", calcPeriod="season";
 function buildCalc(){
   $("#calcMedium").innerHTML=CONFIG.benchmarks.map(b=>`<option value="${b.id}">${b.label}（目安 ${yen(b.cpm)}）</option>`).join("");
   $("#calcMedium").value=activeBench.id;
@@ -785,7 +788,7 @@ function buildCalc(){
   $("#calcMedium").addEventListener("change",()=>{ activeBench=resolveBench($("#calcMedium").value); $("#calcBench").value=fmt(activeBench.cpm); renderCalc(); });
   $("#calcBudget").addEventListener("input",renderCalc);
   $("#calcBench").addEventListener("input",()=>{ activeBench.cpm=parseNum($("#calcBench").value)||activeBench.cpm; renderCalc(); });
-  setCalcTier("silver");
+  setCalcTier("base");
 }
 function setCalcTier(id){ calcTier=id; $("#calcSeg").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.getAttribute("data-t")===id)); renderCalc(); }
 function renderCalc(){
@@ -797,15 +800,14 @@ function renderCalc(){
   $("#calcOut").innerHTML=`
     <h4>${t.name} プランでの概算</h4>
     <p style="color:var(--muted);font-size:13px;margin-bottom:14px">${t.rank} ・ ${esc(t.jp)} ・ シーズン料金 ${yen(t.price)}（≈ 月 ${yen(mo)}）</p>
-    <div class="calc-headline"><b style="color:var(--orange)">${t.name}</b>：想定 <b>${man(t.impressions)}</b> インプレッション ・ 広告換算 <b>${yen(adEq)}</b> 相当 ・ ${esc(q.benchLabel)}比 <b>約${eff.toFixed(1)}倍</b>の効率。</div>
+    <div class="calc-headline"><b style="color:var(--orange)">${t.name}</b>：想定 <b>${man(t.impressions)}</b> インプレッション ・ 実質CPM <b>${yen(q.divCpm)}</b>。<br><span style="color:var(--gold-soft);font-size:13px">価値は&quot;安さ&quot;ではなく、18–34歳・日本中心の熱量あるファンへ、文脈ごと届く&quot;的中率&quot;です。</span></div>
     <div class="quote-grid">
       <div class="qcard"><div class="lbl">想定インプレッション</div><div class="big">${man(t.impressions)}</div></div>
       <div class="qcard"><div class="lbl">想定ユニークリーチ</div><div class="big">${man(t.reach)}</div></div>
-      <div class="qcard hl"><div class="lbl">実質CPM ・ 露出効率 約${eff.toFixed(1)}倍</div><div class="big">${yen(q.divCpm)}</div><div class="sub">${esc(q.benchLabel)}（目安 ${yen(q.benchCpm)}）比</div></div>
-      <div class="qcard hl"><div class="lbl">広告換算価値（目安）</div><div class="big">${yen(adEq)}</div><div class="sub">同量の露出を${esc(q.benchLabel)}で買った場合の概算</div></div>
+      <div class="qcard hl" style="grid-column:1/-1"><div class="lbl">実質CPM（実測積み上げベース）</div><div class="big">${yen(q.divCpm)}</div><div class="sub">${esc(q.benchLabel)}（${yen(q.benchCpm)}）との比較は下のグラフで</div></div>
     </div>
     ${compareBlock(q)}
-    <div class="note">※想定値の算出根拠：OWCS Japan公式放送でのロゴ露出（平均同時視聴 × 出場試合の放送時間 × 表示機会）＋ チームSNS・動画の実測リーチ（X 年間約460万imp／YouTube 年間約17万回再生）に基づく<b>推定（目標値）</b>です。確約値ではなく、広告換算価値は比較媒体のCPMでの概算。具体的な数値・内容はお打ち合わせで一緒に明確にしていきます。</div>
+    <div class="note">※算出根拠：①公式放送でのロゴ露出（平均同時視聴 × 出場試合数 × 表示機会）＋②チームX（年間実測 約460万imp）＋③YouTube（年間実測 約17万回）＋④メンバー配信バナー（平均同接 × 本数）を露出面ごとに積み上げた<b>推定（目標値）</b>です。確約値ではありません。実質CPMは概ね¥1,100〜1,800で、YouTube動画広告（¥1,500前後）と同水準。<b>メンバー拡大により配信面の到達は今後さらに伸びます。</b>具体的な数値・内容はお打ち合わせで一緒に明確にしていきます。</div>
     <div class="export-row">
       <a class="btn sm" id="calcMail" href="#">この内容で相談する →</a>
       <button class="btn sm gold" id="calcPdf">📄 PDF</button>
